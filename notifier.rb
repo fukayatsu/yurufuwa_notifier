@@ -42,7 +42,7 @@ class Notifier
       user_icon  = post.css('img').attr('src').value
 
       if redis[user_id] != created_at.to_i.to_s
-        redis[user_id]   = created_at.to_i.to_s
+        redis.setex(user_id, 60*60*24*10, created_at.to_i.to_s)
         send_notification({
           user_name: user_name,
           user_icon: user_icon,
