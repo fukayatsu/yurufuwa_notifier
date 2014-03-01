@@ -60,7 +60,8 @@ private
     @pplog_client ||= Faraday.new(
       url: 'https://www.pplog.net',
       headers: {
-        'Cookie' => ENV['PPLOG_COOKIE']
+        'Cookie'     => ENV['PPLOG_COOKIE'],
+        'User-Agent' => 'yurufuwa android gcm test'
       }
     ) do |faraday|
       faraday.request  :url_encoded             # form-encode POST params
