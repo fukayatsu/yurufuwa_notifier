@@ -89,6 +89,6 @@ private
       redis = Redis.new
     end
 
-    Redis::Namespace.new(:yurufuwa_notifier, redis: redis)
+    @redis = Redis::Namespace.new(:yurufuwa_notifier, redis: redis)
   end
 end
