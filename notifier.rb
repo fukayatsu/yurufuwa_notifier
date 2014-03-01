@@ -15,6 +15,7 @@ class Notifier
     my_post  = posts.first
 
     created_at = Time.parse(my_post.css('.created-at').text)
+    title     = my_post.css('.title').text.strip
     if redis[:my_post_created_at] != created_at.to_i.to_s
       redis[:my_post_created_at]   = created_at.to_i.to_s
       redis.del(:stared_list)
@@ -29,6 +30,7 @@ class Notifier
       send_notification({
         user_name: user_name,
         user_icon: user_icon,
+        title:     title,
         action:    "read_poem",
         message:   "@#{user_name} があしあとをつけました",
         url:       "https://www.pplog.net/u/#{current_user_name}",
@@ -40,12 +42,14 @@ class Notifier
       user_id    = post.attr('id')
       user_name  = post.css('.post-info > .user-name').text.gsub('@', '')
       user_icon  = post.css('img').attr('src').value
+      title      = post.css('.title').text.strip
 
       if redis[user_id] != created_at.to_i.to_s
         redis.setex(user_id, 60*60*24*10, created_at.to_i.to_s)
         send_notification({
           user_name: user_name,
           user_icon: user_icon,
+          title:     title,
           action:    "new_poem",
           message:   "@#{user_name} がポエみました#{rand(0..10) == 0 ? ' ( ˘ω˘)' : ''}",
           url:       "https://www.pplog.net/u/#{user_name}",
