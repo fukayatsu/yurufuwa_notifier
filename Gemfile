@@ -6,4 +6,4 @@ gem "faraday"
 gem 'redis-namespace'
 gem 'dotenv'
 gem 'gcm'
-gem 'pry'
+gem 'tapp'

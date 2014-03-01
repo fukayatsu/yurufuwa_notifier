@@ -4,6 +4,7 @@ require 'redis-namespace'
 require 'dotenv'; Dotenv.load
 require 'json'
 require 'gcm'
+require 'tapp'
 
 class Notifier
   def fetch_and_send
@@ -79,9 +80,11 @@ private
     if !data[:user_icon].match(/^http/)
       data[:user_icon] = "http:#{data[:user_icon]}"
     end
-    options          = { data: data }
+    puts "[options]"
+    options          = { data: data }.tapp
     registration_ids = [ENV['GCM_REG_ID']]
-    response = @gcm.send_notification(registration_ids, options)
+    puts "[response]"
+    @gcm.send_notification(registration_ids, options).tapp
   end
 
   def redis
