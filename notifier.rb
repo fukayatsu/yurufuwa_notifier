@@ -1,11 +1,9 @@
 require 'nokogiri'
 require 'faraday'
 require 'redis-namespace'
-require 'dotenv'; Dotenv.load!
+require 'dotenv'; Dotenv.load
 require 'json'
 require 'gcm'
-
-# redis使うか
 
 class Notifier
   def fetch_and_send
