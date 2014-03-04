@@ -35,6 +35,7 @@ class Notifier
         action:    "read_poem",
         message:   "@#{user_name} があしあとをつけました",
         url:       "https://www.pplog.net/u/#{current_user_name}",
+        others_count: (redis.scard(:stared_list) - 1),
       })
     end
 
